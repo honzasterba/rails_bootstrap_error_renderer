@@ -20,8 +20,9 @@ module RailsBootstrapErrorRenderer
   def self.render_for_element(element, instance)
     element.add_class("is-invalid")
     if applicable_input? element
+      msgs = Array.wrap(instance.error_message).map { |m| %(<div class="invalid-feedback">#{m}</div>) }.join("\n")
       instance.raw(
-        %(#{element.to_html} <div class="invalid-feedback">#{[*instance.error_message].to_sentence}</div>)
+        %(#{element.to_html}\n#{msgs})
       )
     else
       instance.raw element.to_html

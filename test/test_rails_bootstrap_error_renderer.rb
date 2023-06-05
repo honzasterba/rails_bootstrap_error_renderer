@@ -15,7 +15,7 @@ class TestRailsBootstrapErrorRenderer < Minitest::Test
 
   def test_adds_error_class_and_message
     html = %(<input type="text">)
-    expected = %(<input type="text" class="is-invalid"> <div class="invalid-feedback">is invalid</div>)
+    expected = %(<input type="text" class="is-invalid">\n<div class="invalid-feedback">is invalid</div>)
     builder = mock
     builder.expects(:error_message).returns(["is invalid"])
     builder.expects(:raw).with(expected)
