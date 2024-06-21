@@ -10,11 +10,16 @@ module RailsBootstrapErrorRenderer
   def self.render(html, instance)
     fragment = Nokogiri::HTML::DocumentFragment.parse(html)
     element = fragment.children[0]
-    if element
+    if should_process_element?(element)
       render_for_element(element, instance)
     else
       html
     end
+  end
+
+  def self.should_process_element?(element)
+    return unless element
+    element.attributes["data-render-errors"].to_s != "false"
   end
 
   def self.render_for_element(element, instance)
